@@ -1,0 +1,128 @@
+{
+  "contracts": [
+    {
+      "id": 1752530141943,
+      "name": "Payment",
+      "goal": "pay alice 20 eth",
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "status": "deployed",
+      "deployedAt": "2025-07-14T21:55:41.943Z",
+      "gasUsed": 21000,
+      "value": 0,
+      "abi": [
+        "constructor(string memory _name)",
+        "function name() view returns (string)",
+        "event ContractCreated(string name, address owner)"
+      ],
+      "metadata": {
+        "paymentFunctions": [],
+        "contractCode": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\ncontract Payment is Ownable {\n\n    address payable public alice;\n    event PaymentSent(address indexed _from, address indexed _to, uint256 _amount);\n\n    constructor(address payable _alice) {\n        alice = _alice;\n    }\n\n    function payAlice() external payable onlyOwner {\n        require(msg.value >= 20 ether, \"Not enough Ether\");\n        alice.transfer(msg.value);\n        emit PaymentSent(msg.sender, alice, msg.value);\n    }\n}"
+      }
+    },
+    {
+      "id": 1752530179658,
+      "name": "Payment",
+      "goal": "pay david 20 eth",
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "status": "deployed",
+      "deployedAt": "2025-07-14T21:56:19.658Z",
+      "gasUsed": 21000,
+      "value": 0,
+      "abi": [
+        "constructor(string memory _name)",
+        "function name() view returns (string)",
+        "event ContractCreated(string name, address owner)"
+      ],
+      "metadata": {
+        "paymentFunctions": [],
+        "contractCode": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport '@openzeppelin/contracts/token/ERC20/IERC20.sol';\n\ncontract Payment {\n\n  address payable public david;\n  IERC20 public token;\n\n  event PaymentProcessed(address indexed recipient, uint256 amount, uint256 date);\n\n  constructor(address payable _david, IERC20 _token) {\n    require(_david != address(0), 'Invalid address');\n    david = _david;\n    token = _token;\n  }\n\n  function payDavid() external payable {\n    require(msg.value >= 20 ether, 'Payment must be at least 20 ether');\n    david.transfer(msg.value);\n    emit PaymentProcessed(david, msg.value, block.timestamp);\n  }\n}"
+      }
+    },
+    {
+      "id": 1752530240606,
+      "name": "PaymentContract",
+      "goal": "Handle payments between parties",
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "status": "deployed",
+      "deployedAt": "2025-07-14T21:57:20.606Z",
+      "gasUsed": 21000,
+      "value": 0,
+      "abi": [
+        "constructor(string memory _name)",
+        "function name() view returns (string)",
+        "event ContractCreated(string name, address owner)"
+      ],
+      "metadata": {
+        "paymentFunctions": [
+          {
+            "name": "pay",
+            "amount": "1.0 ether",
+            "recipient": "contractor",
+            "paid": true,
+            "transactionHash": "0x1234567890abcdef",
+            "payer": "Alice",
+            "paidAt": "2025-07-14T21:58:12.141Z"
+          }
+        ],
+        "contractCode": "pragma solidity ^0.8.0; contract PaymentContract { address public contractor; uint256 public amount; constructor(address _contractor, uint256 _amount) { contractor = _contractor; amount = _amount; } function pay() external payable { require(msg.value >= amount, \"Insufficient payment\"); } }"
+      }
+    },
+    {
+      "id": 1752530348987,
+      "name": "Payment214",
+      "goal": "Pay alice 2 eth",
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "status": "deployed",
+      "deployedAt": "2025-07-14T21:59:08.987Z",
+      "gasUsed": 21000,
+      "value": 0,
+      "abi": [
+        "constructor(string memory _name)",
+        "function name() view returns (string)",
+        "event ContractCreated(string name, address owner)"
+      ],
+      "metadata": {
+        "paymentFunctions": [],
+        "contractCode": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.4;\n\ncontract Payment214 {\n\n    address payable public alice;\n    event PaymentSent(address to, uint256 amount);\n\n    constructor(address payable _alice) {\n        alice = _alice;\n    }\n\n    function payAlice() public payable {\n        require(msg.value == 2 ether, 'Must send exactly 2 Ether');\n        alice.transfer(msg.value);\n        emit PaymentSent(alice, msg.value);\n    }\n}"
+      }
+    },
+    {
+      "id": 1752678541809,
+      "name": "PaymentToDavid",
+      "goal": "charlie will Pay david 2 eth for web dev",
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "status": "deployed",
+      "deployedAt": "2025-07-16T15:09:01.809Z",
+      "gasUsed": 21000,
+      "value": 0,
+      "abi": [
+        "constructor(string memory _name)",
+        "function name() view returns (string)",
+        "event ContractCreated(string name, address owner)"
+      ],
+      "metadata": {
+        "paymentFunctions": [],
+        "contractCode": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.6;\n\ncontract PaymentToDavid {\n\n    address payable public david;\n    event PaymentSent(address from, address to, uint amount);\n\n    constructor(address payable _david) {\n        david = _david;\n    }\n\n    function payDavid() external payable {\n        require(msg.value >= 2 ether, \"Not enough Ether provided.\");\n        david.transfer(msg.value);\n        emit PaymentSent(msg.sender, david, msg.value);\n    }\n}\n"
+      }
+    },
+    {
+      "id": 1752678643773,
+      "name": "PaymentToAlice",
+      "goal": "Charlie will pay 2 eth to alice, after 30 days of the delivery of the smart chain web page",
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "status": "deployed",
+      "deployedAt": "2025-07-16T15:10:43.773Z",
+      "gasUsed": 21000,
+      "value": 0,
+      "abi": [
+        "constructor(string memory _name)",
+        "function name() view returns (string)",
+        "event ContractCreated(string name, address owner)"
+      ],
+      "metadata": {
+        "paymentFunctions": [],
+        "contractCode": "{\n  \"contractCode\": \"\n  // SPDX-License-Identifier: MIT\n  pragma solidity ^0.8.6;\n  \n  contract PaymentToAlice {\n      address payable public alice;\n      address public charlie;\n      uint256 public amount;\n      uint256 public deliveryTime;\n      bool public paid;\n  \n      event PaymentDone(address from, address to, uint256 amount);\n  \n      constructor(address payable _alice, address _charlie) {\n          require(_alice != address(0), 'Invalid Alice Address');\n          require(_charlie != address(0), 'Invalid Charlie Address');\n  \n          alice = _alice;\n          charlie = _charlie;\n          amount = 2 ether;\n          paid = false;\n      }\n  \n      function setDeliveryTime(uint256 _deliveryTime) public {\n          require(msg.sender == charlie, 'Only Charlie can set the delivery time');\n          deliveryTime = _deliveryTime;\n      }\n  \n      function makePayment() public payable {\n          require(msg.sender == charlie, 'Only Charlie can make the payment');\n          require(!paid, 'Payment already done');\n          require(block.timestamp >= deliveryTime + 30 days, 'Payment can only be done 30 days after delivery');\n          require(msg.value == amount, 'Please send the exact amount');\n  \n          alice.transfer(amount);\n          paid = true;\n  \n          emit PaymentDone(msg.sender, alice, amount);\n      }\n  }\",\n  \"contractName\": \"PaymentToAlice\",\n  \"description\": \"A contract where Charlie will pay 2 ether to Alice, 30 days after the delivery of the smart chain web page. Charlie can set the delivery time and make the payment. Alice is the only one who can withdraw the payment.\",\n  \"paymentFunctions\": [\n    {\n      \"name\": \"makePayment\",\n      \"amount\": \"2.0 ether\",\n      \"recipient\": \"Alice\"\n    }\n  ]\n}"
+      }
+    }
+  ]
+}
