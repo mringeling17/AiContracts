@@ -2,7 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'frontend',
-      script: 'vite',
+      script: 'npm',
+      args: 'run dev',
       env: {
         HOST: '0.0.0.0',
         PORT: 5173
